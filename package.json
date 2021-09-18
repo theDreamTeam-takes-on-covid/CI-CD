@@ -4,14 +4,19 @@
   "description": "cool",
   "main": "msg.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "nyc mocha --timeout 10000",
     "start": "nodemon server.js"
   },
   "author": "group A",
   "license": "ISC",
   "dependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
     "express": "^4.17.1",
+    "http": "0.0.1-security",
+    "mocha": "^9.1.1",
     "nodemon": "^2.0.12",
+    "nyc": "^15.1.0",
     "path": "^0.12.7",
     "sinon": "^11.1.2"
   }
