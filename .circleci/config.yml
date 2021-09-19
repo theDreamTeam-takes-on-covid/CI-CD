@@ -15,47 +15,26 @@
 #           # https://circleci.com/developer/images/image/cimg/node
 
 version: 2.1
-
+orbs:
+  aws-s3: circleci/aws-s3@3.0
 jobs:
   build:
     docker:
-      - image: cibuilds/snapcraft:stable
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD
-      - persist_to_workspace:
-          root: .
-          paths: 
-            - .
-  test:
-    machine: 
-      image: cibuilds/snapcraft:stable
+      - image: 'cimg/python:3.6'
     steps:
-      - attach_workspace:
-          at: .
       - checkout
-      - run: npm run test
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-  deploy:
-    machine:
-        image: cibuilds/snapcraft:stable
-    steps:
-    - attach_workspace:
-        at: .
-    - checkout
-    - run: aws s3 snyc /msg-app arn:aws:s3:::myawsmessagebucket
-
-
+      - run: mkdir bucket && echo "lorem ipsum" > bucket/build_asset.txt
+      - aws-s3/sync:
+          arguments: |
+            --acl public-read \
+            --cache-control "max-age=86400"
+          from: bucket
+          to: 's3://myawsmessagebucket/prefix'
+      - aws-s3/copy:
+          arguments: '--dryrun'
+          from: bucket/build_asset.txt
+          to: 's3://myawsmessagebucket'
 workflows:
-  build_test_and_deploy:
+  s3-example:
     jobs:
       - build
-      - test:
-          requires:
-            - build
-      - deploy:
-          requires:
-            - test
