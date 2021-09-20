@@ -5,7 +5,9 @@
   "main": "msg.js",
   "scripts": {
     "test": "nyc mocha --timeout 10000",
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "build": "webpack"
+    
   },
   "author": "group A",
   "license": "ISC",
