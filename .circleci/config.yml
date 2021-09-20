@@ -1,38 +1,50 @@
+version: 2.1
 
-
-version: '2.1'
+# add your orb below, to be used in integration tests (note: a @dev:alpha
+# release must exist.);
 orbs:
-  aws-code-deploy: circleci/aws-code-deploy@2.0.0
-  aws-s3: circleci/aws-s3@3.0
+  serverless: circleci/serverless-framework@1.0.1
+  aws-cli: circleci/aws-cli@0.1.22
+  node: circleci/node@2.0
 
 jobs:
-  build:
-    docker:
-      - image: 'cimg/python:3.6'
+  test:
+    executor: node/default
     steps:
       - checkout
-      - run: mkdir bucket && echo "lorem ipsum" > bucket/build_asset.txt
-      - aws-s3/sync:
-          arguments: |
-            --acl public-read \
-            --cache-control "max-age=86400"
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          from: bucket
-          to: 's3://myawsmessagebucket/prefix'
-      - aws-s3/copy:
-          arguments: '--dryrun'
-          from: bucket/build_asset.txt
-          to: 's3://myawsmessagebucket/prefix'
-  deploy_application:
-      - aws-code-deploy/deploy:
-          application-name: msg-app
-          bundle-bucket: myawsmessagebucket
-          
+      - node/install-packages
+      - run:
+          name: echo me
+          command: echo "Hello"
+      - run:
+          name: Run Tests
+          command: npm run test
+  deploy:
+    executor: serverless/default
+    steps:
+      - checkout
+      - aws-cli/setup
+      - node/install-packages
+      - serverless/setup:
+          provider: AWS
+          app-name: serverless-framework-orb
+          org-name: circleci
+      - run:
+          name: Local invoke add function
+          command: serverless invoke local --function add --path 'sampleData/data.json'
+      - run:
+          command: serverless deploy -v
+          name: deploy
+
 workflows:
-  s3-example:
-    jobs:
-      - build
-      - deploy:
-          requires:
-            build
+ test_and_deploy:
+  jobs:
+    - test
+    - deploy:
+        requires:
+          - test
+        filters:
+            branches:
+              only: master
+        context: serverless-framework-orb-testing
+
