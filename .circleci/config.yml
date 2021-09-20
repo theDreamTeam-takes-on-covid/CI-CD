@@ -2,7 +2,9 @@
 
 version: '2.1'
 orbs:
+  aws-code-deploy: circleci/aws-code-deploy@2.0.0
   aws-s3: circleci/aws-s3@3.0
+
 jobs:
   build:
     docker:
@@ -22,7 +24,15 @@ jobs:
           arguments: '--dryrun'
           from: bucket/build_asset.txt
           to: 's3://myawsmessagebucket/prefix'
+  deploy_application:
+      - aws-code-deploy/deploy:
+          application-name: msg-app
+          bundle-bucket: myawsmessagebucket
+          
 workflows:
   s3-example:
     jobs:
       - build
+      - deploy:
+          requires:
+            build
