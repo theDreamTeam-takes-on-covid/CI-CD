@@ -2,12 +2,11 @@
   "name": "messaging-app",
   "version": "1.0.0",
   "description": "cool",
-  "main": "msg.js",
+  "main": "index.js",
   "scripts": {
     "test": "nyc mocha --timeout 10000",
-    "start": "nodemon app/server.js",
-    "build": "echo 'hello build'"
-    
+    "start": "nodemon ./src/server.js",
+    "build": "webpack"
   },
   "author": "group A",
   "license": "ISC",
@@ -21,5 +20,9 @@
     "nyc": "^15.1.0",
     "path": "^0.12.7",
     "sinon": "^11.1.2"
+  },
+  "devDependencies": {
+    "webpack": "^5.53.0",
+    "webpack-cli": "^4.8.0"
   }
 }

@@ -1,0 +1,1 @@
+(()=>{let e=document.getElementById("messages"),t=document.getElementById("textbox");document.getElementById("button").addEventListener("click",(function(){var n=document.createElement("li");n.innerHTML=t.value,e.appendChild(n),t.value=""}))})();

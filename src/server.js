@@ -12,7 +12,7 @@ app.use(express.static(path.join(__dirname,'public')));
 
 
 app.get('/', (req,res) => {
-    res.status(200).sendFile('/index.html',{ 
+    res.status(200).sendFile('./public/index.html',{ 
       root:__dirname
     });
    
