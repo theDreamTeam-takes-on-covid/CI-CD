@@ -11,7 +11,7 @@ const app = express();
 app.use(express.static(path.join(__dirname,'public')));
 
 
-app.get('/', (req,res) => {
+app.get('/bbbbddd', (req,res) => {
     res.status(200).sendFile('/index.html',{ 
       root:__dirname
     });
