@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "nyc mocha --timeout 10000",
-    "start": "nodemon server.js",
+    "start": "nodemon ./app/server.js",
     "build": "webpack"
   },
   "author": "group A",
