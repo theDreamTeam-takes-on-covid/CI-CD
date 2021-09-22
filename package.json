@@ -6,7 +6,7 @@
   "scripts": {
     "test": "nyc mocha --timeout 10000",
     "start": "nodemon ./app/server.js",
-    "build": "webpack"
+    "build": "do the build"
   },
   "author": "group A",
   "license": "ISC",
