@@ -36,7 +36,7 @@ jobs:
       - attach_workspace:
           at: .
       - checkout
-      - run: aws s3 sync ./app s3://turbo-octo-palm-tree
+      - run: aws s3 sync ./app s3://turbo-octo-palm-tree/app
     
 
 workflows:
@@ -46,4 +46,6 @@ workflows:
       - test:
           requires:
             - build
-      - deploy
+      - deploy:
+          requires:
+            - test
