@@ -11,7 +11,7 @@ jobs:
           command: |
             sudo apt-get update
             sudo apt install python3-pip
-            sudo pip3 install awscli --upgrade
+            sudo pip3 install awsebcli --upgrade
             aws configure
               env_var_name: AWS_ACESS_KEY_ID
               env_var_name: AWS_REGION
