@@ -32,13 +32,8 @@ jobs:
   deploy:
     machine:
         image: ubuntu-2004:202010-01
-        auth:
-          env_var_name: AWS_ACESS_KEY_ID
-          env_var_name: AWS_REGION
-          env_var_name: AWS_SECRET_KEY
+        
     steps:
-      - attach_workspace:
-          at: .
       - checkout
       - run: aws s3 sync ./app s3://turbo-octo-palm-tree/app
       
