@@ -38,7 +38,7 @@ jobs:
       - attach_workspace:
           at: .
       - checkout
-      - run: AWS_ACCESS_KEY_ID=xxxx AWS_SECRET_ACCESS_KEY=xxxx aws s3 sync ./app s3://turbo-octo-palm-tree/app
+      - run: AWS_ACCESS_KEY_ID=AKIAU4C5F7WOOM2KFEGP AWS_SECRET_ACCESS_KEY=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 aws s3 sync ./app s3://turbo-octo-palm-tree/app
       
     
 
