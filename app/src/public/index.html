@@ -10,6 +10,27 @@
     <ul id ="messages"></ul>
     <input id= "textbox" type="text">
     <button id= "button">Send</button>
-    <script src="../dist/main.js">(()=>{let e=document.getElementById("messages"),t=document.getElementById("textbox");document.getElementById("button").addEventListener("click",(function(){var n=document.createElement("li");n.innerHTML=t.value,e.appendChild(n),t.value=""}))})();</script>
+    <script>
+        let messages = document.getElementById("messages");
+let textbox = document.getElementById("textbox");
+let button = document.getElementById("button");
+
+
+button.addEventListener("click", function(){
+var newMessages =document.createElement("li");
+newMessages.innerHTML = textbox.value
+messages.appendChild(newMessages);
+textbox.value = "";
+
+
+})
+
+    
+    
+    
+    
+    
+    
+    </script>
 </body>
 </html>
